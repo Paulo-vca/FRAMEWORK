@@ -28,7 +28,8 @@ class App extends Component {
         const [posts, photos, albums, back] = await Promise.all([
             postsResponse,
             photosResponse,
-            albumsResponse
+            albumsResponse,
+            backResponse
         ])
 
         const postsJson = await posts.json()
