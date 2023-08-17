@@ -57,6 +57,7 @@ class App extends Component {
                             <div className="text">
                                 <h1>{post.title}</h1>
                                 <h3>{post.body}</h3>
+                                <p>Album ID: {post.albumId}</p>
                             </div>
                         </div>
                     ))}
