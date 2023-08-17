@@ -19,24 +19,30 @@ class App extends Component {
         const photosResponse = fetch(
             'https://jsonplaceholder.typicode.com/photos'
         )
+        const albumsResponse = fetch(
+            'https://jsonplaceholder.typicode.com/albums'
+        )
 
-        const [posts, photos] = await Promise.all([
+        const [posts, photos, albums] = await Promise.all([
             postsResponse,
-            photosResponse
+            photosResponse,
+            albumsResponse
         ])
 
         const postsJson = await posts.json()
         const photosJson = await photos.json()
+        const albumsJson = await albums.json();
 
         // Array para armazenar os posts e fotos
-        const photosAndPosts = postsJson.map((post, index) => {
+        const photosAndPostsAndAlbum = postsJson.map((post, index) => {
             return {
                 ...post,
+                albumId: albumsJson[index].id,
                 cover: photosJson[index].url
             }
         })
 
-        this.setState({ posts: photosAndPosts })
+        this.setState({ posts: photosAndPostsAndAlbum })
     }
 
     render() {
