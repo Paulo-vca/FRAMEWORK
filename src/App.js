@@ -22,8 +22,10 @@ class App extends Component {
         const albumsResponse = fetch(
             'https://jsonplaceholder.typicode.com/albums'
         )
+        const backResponse = fetch('http://localhost:3000/api');
 
-        const [posts, photos, albums] = await Promise.all([
+
+        const [posts, photos, albums, back] = await Promise.all([
             postsResponse,
             photosResponse,
             albumsResponse
@@ -32,13 +34,15 @@ class App extends Component {
         const postsJson = await posts.json()
         const photosJson = await photos.json()
         const albumsJson = await albums.json();
+        const backJson = await back.json();
 
         // Array para armazenar os posts e fotos
         const photosAndPostsAndAlbum = postsJson.map((post, index) => {
             return {
                 ...post,
                 albumId: albumsJson[index].id,
-                cover: photosJson[index].url
+                cover: photosJson[index].url,
+                back: backJson[index]
             }
         })
 
@@ -57,7 +61,8 @@ class App extends Component {
                             <div className="text">
                                 <h1>{post.title}</h1>
                                 <h3>{post.body}</h3>
-                                <p>Album ID: {post.albumId}</p>
+                                <p>Album: {post.albumId}</p>
+                                <p>back: {post.back}</p>
                             </div>
                         </div>
                     ))}
